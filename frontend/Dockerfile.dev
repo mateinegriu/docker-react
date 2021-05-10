@@ -1,0 +1,18 @@
+# Use an existing docker image as a base.
+FROM node:alpine
+WORKDIR /usr/app
+
+# RUN stuff is run at docker build
+#RUN npm install -g npm@7.11.2
+COPY package.json .
+RUN npm install
+COPY . .
+
+#RUN gcc test.c
+
+# THIS is run at docker run
+CMD [ "npm", "run", "start"]
+#CMD [ "redis-server" ]
+#windows: docker commit -c "CMD 'redis-server'" CONTAINERID
+#linux docker commit -c 'CMD ["redis-server"]' CONTAINERID
+#docker run -it -p 3000:3000 IMAGE_ID

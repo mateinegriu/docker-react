@@ -1,0 +1,20 @@
+version: '3'
+services:
+    web:
+        build:
+            context: frontend/
+            dockerfile: Dockerfile.dev
+        ports:
+            - "3000:3000"
+        volumes:
+            - /usr/app/node_modules
+            - ./frontend/:/usr/app
+    tests:
+        build:
+            context: frontend/
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /usr/app/node_modules
+            - ./frontend/:/usr/app
+        # override CMD command in Dockerfile.dev
+        command: ["npm", "run", "test"]
